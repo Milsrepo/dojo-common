@@ -1,0 +1,14 @@
+{
+    "name": "mils",
+    "description": "Mils Utils",
+    "version": "1.0",
+    "maintainers": [{
+        "name": "Mils"
+    }],
+    "dependencies": {
+        "dojo": "~1.8.0",
+        "dijit": "~1.8.0",
+        "dojox": "~1.8.0"
+    },
+    "dojoBuild": "mils.profile.js"
+}

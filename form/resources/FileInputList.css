@@ -1,0 +1,27 @@
+.fileInputList .resource {
+    width: 160px;
+    height: 120px;
+    margin: auto;
+}
+
+.fileInputList .representation {
+    display: block;
+}
+
+.fileInputList .remove {
+    display: block;
+}
+
+.fileInputList .dgrid-row {
+    float: left;
+    text-align: center;
+    padding: 1em 1em 1em 1em;
+}
+
+.fileInputList .dgrid {
+    height: 155px;
+}
+
+.fileInputList .resource.new {
+    opacity: 0.3;
+}
