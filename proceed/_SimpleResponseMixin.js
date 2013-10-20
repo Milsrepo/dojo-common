@@ -1,9 +1,9 @@
 define([
     "dojo/_base/declare",
     "dojo/Deferred",
-    "mils/tooltip/AutohideTooltip"
+    "dojo-common/tooltip/AutohideTooltip"
 ], function(declare, Deferred, AutohideTooltip) {
-    return declare("mils.proceed._SimpleResponseMixin", null, {
+    return declare("dojo-common.proceed._SimpleResponseMixin", null, {
 
         messageResponseSuccessful: 'Request successful.',
         messageResponseFailed: 'Unexpected error, please try again latter.',

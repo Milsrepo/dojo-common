@@ -8,7 +8,7 @@ define([
     "dojo/i18n!dijit/nls/loading"
 ], function(declare, lang, domAttr, domClass, Button, i18n){
 
-var _BusyButtonMixin = declare("mils.form._BusyButtonMixin", null, {
+var _BusyButtonMixin = declare("dojo-common.form._BusyButtonMixin", null, {
 
     // isBusy: Boolean
     isBusy: false,
@@ -130,5 +130,5 @@ var _BusyButtonMixin = declare("mils.form._BusyButtonMixin", null, {
     }
 });
 
-return declare("mils.form.BusyButton", [Button, _BusyButtonMixin], {});
+return declare("dojo-common.form.BusyButton", [Button, _BusyButtonMixin], {});
 });

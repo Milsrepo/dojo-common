@@ -9,12 +9,12 @@ define([
     "dojo/dom-attr",
     "dojo/query",
     "dojo/io/iframe",
-    "mils/tooltip/AutohideTooltip"
+    "dojo-common/tooltip/AutohideTooltip"
 ], 
 function(declare, lang, FileInputAuto, fx, win, has, domStyle, 
 		 domAttr, query, ioIframe, AutohideTooltip){
     
-return declare("mils.form.FileInputAuto", FileInputAuto, {
+return declare("dojo-common.form.FileInputAuto", FileInputAuto, {
 
     /**
      *

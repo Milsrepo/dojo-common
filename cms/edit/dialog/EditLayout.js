@@ -8,17 +8,17 @@ define([
     "dojo/request",
     "dojo/keys",
     "dojo/on",
-    "mils/tooltip/AutohideTooltip",
-    "mils/proceed/_StandardResponseMixin",
+    "dojo-common/tooltip/AutohideTooltip",
+    "dojo-common/proceed/_StandardResponseMixin",
     "dojo/text!./templates/EditLayout.html",
-    "mils/form/ValidationTextBox",
-    "mils/form/BusyButton"
+    "dojo-common/form/ValidationTextBox",
+    "dojo-common/form/BusyButton"
 ], function(declare, lang,  _Widget, _Container,
             _TemplatedMixin, _WidgetsInTemplateMixin, 
             request, keys, on, AutohideTooltip,
             _StandardResponseMixin, template) {
     
-    return declare('mils.cms.edit.dialog.EditLayout',
+    return declare('dojo-common.cms.edit.dialog.EditLayout',
                    [ _Widget, _Container, _TemplatedMixin,
                      _WidgetsInTemplateMixin, _StandardResponseMixin ], {
 

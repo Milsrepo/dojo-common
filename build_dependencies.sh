@@ -1,10 +1,10 @@
 #!/bin/bash
 
 full="";
-for i in `find . -name "*.js" -print | grep -v './mils.profile.js'`;
+for i in `find . -name "*.js" -print | grep -v './dojo-common.profile.js'`;
   do 
     i=${i:2};
     i=${i%.*};
-    full=$full"\"mils/"$i"\", "
+    full=$full"\"dojo-common/"$i"\", "
 done;
 echo "define(["${full%,*}"], function(){});" > Deps.js;

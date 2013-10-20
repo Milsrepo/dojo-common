@@ -4,7 +4,7 @@ define([
         "dijit/Tooltip"
 ], function(declare, lang, Tooltip) {
 
-    var AutoHideTooltip = declare("mils.tooltip.AutohideTooltip", [ Tooltip._MasterTooltip ], {
+    var AutoHideTooltip = declare("dojo-common.tooltip.AutohideTooltip", [ Tooltip._MasterTooltip ], {
         /* How long tooltip will be displayed
          * 
          * @param {Integer} timeout

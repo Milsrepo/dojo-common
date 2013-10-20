@@ -7,7 +7,7 @@ define([
     "dijit/form/ValidationTextBox",
     "dojo/text!./templates/ValidationTextBox.html"
 ], function(declare, lang, domAttr, domStyle, on, ValidationTextBox, template){
-    return declare("mils.form.ValidationTextBox", ValidationTextBox, {
+    return declare("dojo-common.form.ValidationTextBox", ValidationTextBox, {
         
         templateString: template,
 

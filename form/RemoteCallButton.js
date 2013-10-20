@@ -6,7 +6,7 @@ define([
     "../proceed/_SimpleResponseMixin",
     "./BusyButton"
 ], function(declare, lang, request, AutohideTooltip, _StandardResponseMixin, BusyButton){
-    return declare("mils.form.RemoteCallButton", [BusyButton, _StandardResponseMixin], {
+    return declare("dojo-common.form.RemoteCallButton", [BusyButton, _StandardResponseMixin], {
             actionUrl: '',
             messageResponseSuccessful: 'Действие выполнено успешно',
             messageResponseFailed: 'Не удалось выполнить действие',

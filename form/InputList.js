@@ -17,7 +17,7 @@ function(declare, lang, array, on, domClass, _Widget, _Container, _TemplatedMixi
          put, _FormValueWidget,
          templateList, templateListItem){
 
-    var _InputItem = declare("mils.form.InputListItem", [ _Widget, _Container, _TemplatedMixin ], {
+    var _InputItem = declare("dojo-common.form.InputListItem", [ _Widget, _Container, _TemplatedMixin ], {
 
         templateString: templateListItem,
         removeControl: true,
@@ -89,7 +89,7 @@ function(declare, lang, array, on, domClass, _Widget, _Container, _TemplatedMixi
     });
 
 
-    return declare("mils.form.InputList", [ _Widget, _Container, _TemplatedMixin,
+    return declare("dojo-common.form.InputList", [ _Widget, _Container, _TemplatedMixin,
                                                _FormValueWidget ], {
 
         templateString: templateList,
