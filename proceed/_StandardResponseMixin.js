@@ -2,7 +2,7 @@ define([
     "dojo/_base/declare",
     "./_SimpleResponseMixin"
 ], function(declare, _SimpleResponseMixin) {
-    return declare("dojo-common.proceed._StandardResponseMixin", [_SimpleResponseMixin], {
+    return declare("common.proceed._StandardResponseMixin", [_SimpleResponseMixin], {
 
         messageResponseSuccessful: 'Data successfully saved.',
         messageResponseFailed: 'Unexpected error, please try again latter.',

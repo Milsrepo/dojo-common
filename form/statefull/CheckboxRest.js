@@ -3,12 +3,12 @@ define([
     "dojo/_base/lang",
     "dojo/on",
     "dijit/form/CheckBox",
-    "dojo-common/proceed/_StandardResponseMixin",
+    "common/proceed/_StandardResponseMixin",
     "dojo/request"
 ],
     function(declare, lang, on, CheckBox, _StandardResponseMixin, request){
 
-        return declare("dojo-common.CheckboxRest", [ CheckBox, _StandardResponseMixin ], {
+        return declare("common.CheckboxRest", [ CheckBox, _StandardResponseMixin ], {
 
             _inProgress: true,
 

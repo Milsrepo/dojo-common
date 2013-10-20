@@ -19,7 +19,7 @@ define([
 			_TextBoxMixin, Button, ValidationTextBox, DropDownButton,
 			connect, declare, has, FileUploader, messages) {
 
-var LocalImage = dojo.declare("dojo-common.editor.plugins.LocalImage", LinkDialog.ImgLinkDialog, {
+var LocalImage = dojo.declare("common.editor.plugins.LocalImage", LinkDialog.ImgLinkDialog, {
 	// summary:
 	//		This plugin provides an enhanced image link dialog that
 	//		not only insert the online images, but upload the local image files onto

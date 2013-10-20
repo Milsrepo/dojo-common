@@ -16,13 +16,13 @@ define([
     "put-selector/put",
     "dijit/form/_FormValueWidget",
     "dojo/text!./templates/FileInputList.html",
-    "dojo-common/form/FileInputAuto"
+    "common/form/FileInputAuto"
 ], 
 function(declare, lang, on, array, request, domClass, _Widget, _Container, _TemplatedMixin, _WidgetsInTemplateMixin,
          Memory, Observable, Grid, Selection, put, _FormValueWidget,
          templateList){
 
-    return declare("dojo-common.form.FileInputList", [ _Widget, _Container, _TemplatedMixin,
+    return declare("common.form.FileInputList", [ _Widget, _Container, _TemplatedMixin,
                                                    _FormValueWidget, _WidgetsInTemplateMixin ], {
 
         templateString: templateList,

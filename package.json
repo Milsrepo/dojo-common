@@ -10,5 +10,5 @@
         "dijit": "~1.8.0",
         "dojox": "~1.8.0"
     },
-    "dojoBuild": "dojo-common.profile.js"
+    "dojoBuild": "common.profile.js"
 }
