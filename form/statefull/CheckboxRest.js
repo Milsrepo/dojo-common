@@ -3,7 +3,7 @@ define([
     "dojo/_base/lang",
     "dojo/on",
     "dijit/form/CheckBox",
-    "common/proceed/_StandardResponseMixin",
+    "dojo-common/proceed/_StandardResponseMixin",
     "dojo/request"
 ],
     function(declare, lang, on, CheckBox, _StandardResponseMixin, request){

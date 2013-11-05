@@ -16,7 +16,7 @@ define([
     "put-selector/put",
     "dijit/form/_FormValueWidget",
     "dojo/text!./templates/FileInputList.html",
-    "common/form/FileInputAuto"
+    "dojo-common/form/FileInputAuto"
 ], 
 function(declare, lang, on, array, request, domClass, _Widget, _Container, _TemplatedMixin, _WidgetsInTemplateMixin,
          Memory, Observable, Grid, Selection, put, _FormValueWidget,

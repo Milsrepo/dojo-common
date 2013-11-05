@@ -1,7 +1,7 @@
 define([
     "dojo/_base/declare",
     "dojo/Deferred",
-    "common/tooltip/AutohideTooltip"
+    "dojo-common/tooltip/AutohideTooltip"
 ], function(declare, Deferred, AutohideTooltip) {
     return declare("common.proceed._SimpleResponseMixin", null, {
 

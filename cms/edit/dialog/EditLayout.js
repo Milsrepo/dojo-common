@@ -8,11 +8,11 @@ define([
     "dojo/request",
     "dojo/keys",
     "dojo/on",
-    "common/tooltip/AutohideTooltip",
-    "common/proceed/_StandardResponseMixin",
+    "dojo-common/tooltip/AutohideTooltip",
+    "dojo-common/proceed/_StandardResponseMixin",
     "dojo/text!./templates/EditLayout.html",
-    "common/form/ValidationTextBox",
-    "common/form/BusyButton"
+    "dojo-common/form/ValidationTextBox",
+    "dojo-common/form/BusyButton"
 ], function(declare, lang,  _Widget, _Container,
             _TemplatedMixin, _WidgetsInTemplateMixin, 
             request, keys, on, AutohideTooltip,
