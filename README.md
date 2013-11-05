@@ -1,4 +1,4 @@
 common
 ===========
 
-Common libs for dojo base projects.
+ Common libs for dojo base projects.
