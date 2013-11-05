@@ -22,7 +22,7 @@ function(declare, lang, on, array, request, domClass, _Widget, _Container, _Temp
          Memory, Observable, Grid, Selection, put, _FormValueWidget,
          templateList){
 
-    return declare("common.form.FileInputList", [ _Widget, _Container, _TemplatedMixin,
+    return declare("dojo-common.form.FileInputList", [ _Widget, _Container, _TemplatedMixin,
                                                    _FormValueWidget, _WidgetsInTemplateMixin ], {
 
         templateString: templateList,
@@ -57,19 +57,23 @@ function(declare, lang, on, array, request, domClass, _Widget, _Container, _Temp
 
         _refresh: function () {
             try {
-                var store = this.store = new Observable(new Memory());
+                if (!this.store) {
+                    this.store = new Observable(new Memory());
+                }
+
                 request.get(this.service, {handleAs: 'json'}).then(
                     lang.hitch(this, function (response){
-                        store.setData([]);
+                        this.store.setData([]);
 
                         array.forEach(response, function (item){
-                            store.add(item);
-                        });
-
-                        this.grid.store = store;
-                        this.grid.refresh();
-                    })
+                            this.store.add(item);
+                        }, this);
+                    }), function () {
+                        console.error("Could not load images from remote service */images");
+                    }
                 );
+
+                return this.store;
             } catch (e) {
                  console.error(this.declaredClass+" "+arguments.callee.nom, arguments, e);
                  throw e;
@@ -78,7 +82,6 @@ function(declare, lang, on, array, request, domClass, _Widget, _Container, _Temp
 
         postCreate: function () {
             try {
-                this._refresh();
 
                 this.data = [];
 
@@ -88,13 +91,16 @@ function(declare, lang, on, array, request, domClass, _Widget, _Container, _Temp
                       sortable: false }
                 ];
 
-                this.grid = new declare([ Grid ])({
+
+                this.grid = new declare([ Grid, Selection ])({
                     columns: columns,
                     showHeader: false,
                     renderRow: lang.hitch(this, 'listRenderer')
                 }, this.gridNode);
 
+                this.grid.set('store', this._refresh());
                 this.grid.startup();
+
                 this.addChild(this.grid);
                 this._set('value', this.get('value'));
                 on(this.fileWidget, 'complete', lang.hitch(this, '_dataUploaded'));
@@ -106,6 +112,7 @@ function(declare, lang, on, array, request, domClass, _Widget, _Container, _Temp
         },
 
         _onChange: function(/*Event*/){
+            this.grid.refresh();
             this._handleOnChange(this.get('value'), true);
         },
 
