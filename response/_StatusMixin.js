@@ -1,11 +1,11 @@
 define([
-        "../../dojo/_base/declare",
+        "dojo/_base/declare",
         "dojo/errors/RequestError",
         "./_OptionalMixin",
         "./_GetterMixin"
         ], function(declare, RequestError, _OptionalMixin, _GetterMixin) {
 // module:
-//      backend/component/response/_StatusMixin
+//      dojo-common/component/response/_StatusMixin
 
     var _responseKey = 'status';
 

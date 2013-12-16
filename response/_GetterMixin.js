@@ -1,9 +1,9 @@
 define([
-        "../../dojo/_base/declare",
+        "dojo/_base/declare",
         "./_OptionalMixin"
         ], function(declare, _OptionalMixin) {
 // module:
-//      backend/component/response/_GetterMixin
+//      dojo-common/component/response/_GetterMixin
     return declare([ _OptionalMixin ], {
          defaultGetter: function (key, fallbackValue) {
              // summary:

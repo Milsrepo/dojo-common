@@ -1,10 +1,10 @@
 define([
-        "../../dojo/_base/declare",
+        "dojo/_base/declare",
         "./_OptionalMixin",
         "./_GetterMixin"
         ], function(declare, _OptionalMixin, _GetterMixin) {
 // module:
-//      backend/component/response/_MessageMixin
+//      dojo-common/component/response/_MessageMixin
 
     var _responseKey = 'message';
 
