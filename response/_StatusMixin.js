@@ -47,7 +47,7 @@ define([
 
         isError: function () {
             try {
-                return this.status == 0;
+                return this.status === 0;
             } catch (e) {
                  console.error(this.declaredClass+" "+arguments.callee.nom, arguments, e);
                  throw e;
@@ -67,7 +67,7 @@ define([
                         return 1;
                     }
                 } else {
-                    return data[_responseKey] || null;
+                    return typeof(data[_responseKey]) == 'undefined' ? null : data[_responseKey];
                 }
             } catch (e) {
                  console.error(this.declaredClass+" "+arguments.callee.nom, arguments, e);
