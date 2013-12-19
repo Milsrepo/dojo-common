@@ -54,6 +54,27 @@ return declare("common.form.FileInputAuto", FileInputAuto, {
         }
         this.overlay.appendChild(document.createTextNode(title));
     },
+
+    destroy: function () {
+        try {
+            if (this._blurTimer) {
+                clearTimeout(this._blurTimer);
+            }
+            this.inherited(arguments);
+        } catch (e) {
+             console.error(this.declaredClass+" "+arguments.callee.nom, arguments, e);
+             throw e;
+        }
+    },
+
+    _onBlur: function(){
+        // summary:
+        //		start the upload timer
+        if(this._blurTimer){ clearTimeout(this._blurTimer); }
+        if(!this._sent){
+            this._blurTimer = setTimeout(lang.hitch(this,"_sendFile"),this.blurDelay);
+        }
+    },
     
     _sendFile: function(e) {
         if(this._sent || this._sending || !this.fileInput.value){ return; }
@@ -82,7 +103,7 @@ return declare("common.form.FileInputAuto", FileInputAuto, {
         }
         _newForm.appendChild(this.fileInput);
         win.body().appendChild(_newForm);
-    
+
         ioIframe.send({
             url: this.url,
             form: _newForm,
