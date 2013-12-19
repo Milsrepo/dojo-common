@@ -9,10 +9,13 @@ define([
     "dojo/dom-attr",
     "dojo/query",
     "dojo/io/iframe",
+    "../response/_StatusMixin",
+    "../response/_MessageMixin",
     "dojo-common/tooltip/AutohideTooltip"
 ], 
 function(declare, lang, FileInputAuto, fx, win, has, domStyle, 
-		 domAttr, query, ioIframe, AutohideTooltip){
+		 domAttr, query, ioIframe, _StatusMixin, _MessageMixin,
+         AutohideTooltip){
     
 return declare("common.form.FileInputAuto", FileInputAuto, {
 
@@ -131,21 +134,27 @@ return declare("common.form.FileInputAuto", FileInputAuto, {
    },
 
     onComplete: function(data, ioArgs, widgetRef) {
-        if ((data.status && data.status == 'failed') ||
-            (data.status && data.status == 'success' && this.resetInputAfterSave)) {
-            widgetRef.reset();
-            
-            if (data.message) {
-               AutohideTooltip.show(data.message, this.fileInput);
-            } else {
-                AutohideTooltip.show(data.status == 'failed' && this.failedUploadMessage || this.successfulUploadMessage,
-                                     this.fileInput);
+        try {
+            var resp = new declare([_StatusMixin, _MessageMixin])(data);
+            if (resp.isSuccess()) {
+                this.resetInputAfterSave && widgetRef.reset();
+
+                if (resp.getMessage()) {
+                   AutohideTooltip.show(resp.getMessage(), this.fileInput);
+                }
+            } else if (resp.isError() && resp.getMessage()) {
+                widgetRef.reset();
+                AutohideTooltip.show(resp.getMessage(), this.fileInput);
+            } else if (ioArgs.error) {
+                widgetRef.reset();
+                AutohideTooltip.show(this.failedUploadMessage, this.fileInput);
             }
-        } else if (ioArgs.error) {
-            widgetRef.reset();
-            AutohideTooltip.show(this.failedUploadMessage, this.fileInput);
+
+            this.inherited(arguments);
+        } catch (e) {
+            console.error(this.declaredClass+" "+arguments.callee.nom, arguments, e);
+            throw e;
         }
-        this.inherited(arguments);
     }
 });
 });
