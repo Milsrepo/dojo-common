@@ -136,6 +136,8 @@ return declare("common.form.FileInputAuto", FileInputAuto, {
     onComplete: function(data, ioArgs, widgetRef) {
         try {
             var resp = new declare([_StatusMixin, _MessageMixin])(data);
+            resp.optional('message');
+
             if (resp.isSuccess()) {
                 this.resetInputAfterSave && widgetRef.reset();
 
