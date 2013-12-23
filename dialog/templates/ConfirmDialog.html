@@ -1,0 +1,19 @@
+<div class="dijitDialogConfirm">
+    <div class="dijitDialogPaneContentArea">
+        <div data-dojo-attach-point="contentNode">
+            ${message}
+        </div>
+    </div>
+    <div class="dijitDialogPaneActionBar">
+        <button data-dojo-type="dijit.form.Button"
+                data-dojo-attach-event="onClick: onOk">
+            ${okLabel}
+        </button>
+
+        <button data-dojo-type="dijit.form.Button"
+                data-dojo-attach-event="onClick: onCancel"
+                data-dojo-attach-point="cancelButton">
+            ${cancelLabel}
+        </button>
+    </div>
+</div>
