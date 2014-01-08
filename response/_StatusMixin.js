@@ -1,11 +1,11 @@
 define([
-        "../../dojo/_base/declare",
+        "dojo/_base/declare",
         "dojo/errors/RequestError",
         "./_OptionalMixin",
         "./_GetterMixin"
         ], function(declare, RequestError, _OptionalMixin, _GetterMixin) {
 // module:
-//      backend/component/response/_StatusMixin
+//      dojo-common/component/response/_StatusMixin
 
     var _responseKey = 'status';
 
@@ -47,7 +47,7 @@ define([
 
         isError: function () {
             try {
-                return this.status == 0;
+                return this.status === 0;
             } catch (e) {
                  console.error(this.declaredClass+" "+arguments.callee.nom, arguments, e);
                  throw e;
@@ -67,7 +67,7 @@ define([
                         return 1;
                     }
                 } else {
-                    return data[_responseKey] || null;
+                    return typeof(data[_responseKey]) == 'undefined' ? null : data[_responseKey];
                 }
             } catch (e) {
                  console.error(this.declaredClass+" "+arguments.callee.nom, arguments, e);

@@ -1,8 +1,8 @@
 define([
-        "../../dojo/_base/declare"
+        "dojo/_base/declare"
         ], function(declare) {
 // module:
-//      backend/component/response/_OptionalMixin
+//      dojo-common/component/response/_OptionalMixin
     return declare([ ], {
 
         _optional: {},
