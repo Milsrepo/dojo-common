@@ -95,6 +95,10 @@ return function (anchor, duration, easing) {
 
         // Loop the animation function
         var runAnimation = setInterval(animateScroll, 16);
-        return defer;
+
+        return {def: defer,
+                cancel: function (){
+            clearInterval(runAnimation);
+        }};
     };
 });
