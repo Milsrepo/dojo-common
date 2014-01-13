@@ -21,8 +21,10 @@
 
  * ============================================================= */
 
-define(["dojo/_base/lang", "dojo/Deferred"],
-       function(lang, Deferred) {
+define(["dojo/_base/lang",
+        "dojo/dom-geometry",
+        "dojo/Deferred"],
+       function(lang, domGeom, Deferred) {
 return function (anchor, duration, easing) {
         var defer = new Deferred();
         // Functions to control easing
@@ -44,9 +46,8 @@ return function (anchor, duration, easing) {
 
         // Calculate how far and how fast to scroll
         // http://www.quirksmode.org/blog/archives/2008/01/using_the_assig.html
-        var startLocation = window.pageYOffset;
-        var scrollHeader = document.querySelector( '.scroll-header' );
-        var headerHeight = scrollHeader === null ? 0 : scrollHeader.offsetHeight;
+        var startLocation = domGeom.docScroll().y;
+        var headerHeight = 0;
         var endLocation = function (anchor) {
             var distance = 0;
             if (anchor.offsetParent) {
@@ -76,8 +77,9 @@ return function (anchor, duration, easing) {
         if ( increments >= 0 ) { // If scrolling down
             // Stop animation when you reach the anchor OR the bottom of the page
             stopAnimation = function () {
-                var travelled = window.pageYOffset;
-                if ( (travelled >= (endLocation(anchor) - increments)) || ((window.innerHeight + travelled) >= document.body.scrollHeight) ) {
+                var travelled = domGeom.docScroll().y;
+                if ( (travelled >= (endLocation(anchor) - increments)) ||
+                   ( (window.innerHeight + travelled) >= document.body.scrollHeight) ) {
                     clearInterval(runAnimation);
                     defer.resolve();
                 }
@@ -85,7 +87,7 @@ return function (anchor, duration, easing) {
         } else { // If scrolling up
             // Stop animation when you reach the anchor OR the top of the page
             stopAnimation = function () {
-                var travelled = window.pageYOffset;
+                var travelled = domGeom.docScroll().y;
                 if ( travelled <= endLocation(anchor) || travelled <= 0 ) {
                     clearInterval(runAnimation);
                     defer.resolve();
