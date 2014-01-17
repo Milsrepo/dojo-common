@@ -6,6 +6,10 @@ define([
     "dojo/router/RouterBase"
 ], function(declare, lang, array, string, RouterBase){
 
+    var count = function (obj){
+        var cnt = 0; for (var t in obj) cnt++; return cnt;
+    };
+
     // Firing of routes on the route object is always the same,
     // no clean way to expose this on the prototype since it's for the
     // internal router objects.
@@ -288,6 +292,38 @@ define([
                     //      with given route concatenated
                     //      at the end.
                     return matchedRoute + (route || '');
+                },
+
+                assemble: function (params, /*String*/ route) {
+                    // summary:
+                    //      TODO: write a comment
+                    //  returns:
+                    //      string
+                    try {
+                        var path = matchedRoute, match;
+
+                        if (route) {
+                            path = matchedRoute+route;
+                        }
+
+                        var newPath = path;
+                        if (count(params) < 1) {
+                            return path;
+                        }
+
+                        while((match = RouterBase().idMatch.exec(path)) !== null){
+                            for (var param in params) {
+                                if (param == match[1]) {
+                                    newPath = newPath.replace(new RegExp(match[0], 'g'), params[param]);
+                                }
+                            }
+                        }
+
+                        return newPath;
+                    } catch (e) {
+                        console.error(this.declaredClass, arguments, e);
+                        throw e;
+                    }
                 },
 
                 register: function(/*String*/ route,/*Function*/ callback){
