@@ -1,8 +1,8 @@
 define([
     "dojo/_base/declare",
     "./_SimpleResponseMixin",
-    "dojo-common/response/_MessageMixin",
-    "dojo-common/response/_StatusMixin"
+    "dojo-common/response/Message",
+    "dojo-common/response/Status"
 ], function(declare, _SimpleResponseMixin, _MessageMixin, _StatusMixin) {
     return declare("common.proceed._StandardResponseMixin", [_SimpleResponseMixin], {
 

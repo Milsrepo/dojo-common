@@ -5,7 +5,7 @@ define([
         "./_GetterMixin"
         ], function(declare, RequestError, _OptionalMixin, _GetterMixin) {
 // module:
-//      dojo-common/component/response/_StatusMixin
+//      dojo-common/component/response/Status
 
     var _responseKey = 'status';
 

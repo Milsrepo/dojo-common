@@ -4,29 +4,29 @@ define([
         "./_GetterMixin"
         ], function(declare, _OptionalMixin, _GetterMixin) {
 // module:
-//      dojo-common/component/response/_DataMixin
+//      dojo-common/component/response/Message
 
-    var _responseKey = 'data';
+    var _responseKey = 'message';
 
     return declare([ _OptionalMixin, _GetterMixin ], {
         // summary:
         //      This mixin should be used if response will support
-        //      data
+        //      messages
 
-        data: null,
+        message: null,
 
         constructor: function (data, opt) {
             try {
-                this.data = this.extractData(data || {});
+                this.message = this.extractMessage(data || {});
             } catch (e) {
                 console.error(this.declaredClass+" "+arguments.callee.nom, arguments, e);
                 throw e;
             }
         },
 
-        getData: function (fallbackValue) {
+        getMessage: function (fallbackValue) {
             // summary:
-            //      Return data from data object
+            //      Return message from data object
             try {
                 return this.defaultGetter(_responseKey, fallbackValue);
             } catch (e) {
@@ -36,9 +36,9 @@ define([
         },
 
 
-        extractData: function (data) {
+        extractMessage: function (data) {
             // summary:
-            //      Method for extracting data
+            //      Method for extracting message string
             //      from data
             try {
                data = data || {};

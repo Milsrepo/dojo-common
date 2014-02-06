@@ -9,8 +9,8 @@ define([
     "dojo/dom-attr",
     "dojo/query",
     "dojo/io/iframe",
-    "../response/_StatusMixin",
-    "../response/_MessageMixin",
+    "../response/Status",
+    "../response/Message",
     "dojo-common/tooltip/AutohideTooltip"
 ], 
 function(declare, lang, FileInputAuto, fx, win, has, domStyle, 
