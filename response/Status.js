@@ -2,14 +2,15 @@ define([
         "dojo/_base/declare",
         "dojo/errors/RequestError",
         "./_OptionalMixin",
-        "./_GetterMixin"
-        ], function(declare, RequestError, _OptionalMixin, _GetterMixin) {
+        "./_GetterMixin",
+        "./_JsonifyMixin"
+        ], function(declare, RequestError, _OptionalMixin, _GetterMixin, _JsonifyMixin) {
 // module:
 //      dojo-common/component/response/Status
 
     var _responseKey = 'status';
 
-    return declare([ _OptionalMixin, _GetterMixin ], {
+    return declare([ _OptionalMixin, _GetterMixin, _JsonifyMixin ], {
         // summary:
         //      This mixin should be used if response will support
         //      status
@@ -59,7 +60,7 @@ define([
             //      Method for extracting message string
             //      from data
             try {
-                data = data || {};
+                data = this.jsonify(data || {});
                 if (data instanceof RequestError) {
                     if (data.response && data.response[_responseKey] != 200) {
                         return 0;

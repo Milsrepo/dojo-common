@@ -1,14 +1,15 @@
 define([
         "dojo/_base/declare",
         "./_OptionalMixin",
-        "./_GetterMixin"
-        ], function(declare, _OptionalMixin, _GetterMixin) {
+        "./_GetterMixin",
+        "./_JsonifyMixin"
+        ], function( declare, _OptionalMixin, _GetterMixin, _JsonifyMixin ) {
 // module:
 //      dojo-common/component/response/Data
 
     var _responseKey = 'data';
 
-    return declare([ _OptionalMixin, _GetterMixin ], {
+    return declare([ _OptionalMixin, _GetterMixin, _JsonifyMixin ], {
         // summary:
         //      This mixin should be used if response will support
         //      data
@@ -41,7 +42,7 @@ define([
             //      Method for extracting data
             //      from data
             try {
-               data = data || {};
+               data = this.jsonify(data || {});
                return data[_responseKey] || null;
             } catch (e) {
                  console.error(this.declaredClass+" "+arguments.callee.nom, arguments, e);
