@@ -1,8 +1,14 @@
 define([
     "dojo/_base/declare",
     "dojo/_base/lang",
+    "dojo/_base/array",
+    "../string",
     "dojo/router/RouterBase"
-], function(declare, lang, RouterBase){
+], function(declare, lang, array, string, RouterBase){
+
+    var count = function (obj){
+        var cnt = 0; for (var t in obj) cnt++; return cnt;
+    };
 
     // Firing of routes on the route object is always the same,
     // no clean way to expose this on the prototype since it's for the
@@ -21,7 +27,9 @@ define([
             params: params
         };
 
-        console.debug("Route Fired >> queue.length >>", queue.length, " and queue >>", queue);
+        console.debug("Route Fired >> ", newPath,
+                      "queue.length >>", queue.length,
+                      "queue >>", queue);
 
         for(i=0, l=queue.length; i<l; ++i){
             if(!isStopped){
@@ -160,6 +168,32 @@ define([
 
             if (typeof route == 'undefined') {
                 throw "Route must be defined";
+            } else if (typeof(route) == 'string' || typeof(route) == 'array') {
+                var prouteParts;
+                if (typeof(route) == 'string') {
+                    prouteParts = route.split('/');
+                } else {
+                    prouteParts = route;
+                }
+
+                prouteParts = array.filter(prouteParts, function(part){return string.trim(part).length});
+
+                if (prouteParts.length > 1) {
+                    lastRoute = prouteParts.pop();
+                    var _router = null;
+
+                    for (var i = 0; i < prouteParts.length; i++) {
+                        if (!_router) {
+                            _router = this._registerPartialRoute(targets,
+                                                                 "/"+prouteParts[i],
+                                                                 function (){}, isBefore);
+                        } else {
+                            _router = _router.register("/"+prouteParts[i],
+                                                       function (){});
+                        }
+                    }
+                    return _router.register("/"+lastRoute, callback);
+                }
             }
 
             if (!lang.isFunction(callback)) {
@@ -188,7 +222,6 @@ define([
                 matchedRoute+=route;
             }
 
-            console.log("Targets splitted", _splitTarget);
             (function _findRoute(splitTarget, targetsPointer) {
                 var node = splitTarget.shift();
                 foundTarget = targetsPointer[node];
@@ -227,9 +260,6 @@ define([
             routeObj['callbackQueue'] = callbackQueue;
             routeObj['fire'] =  fireRoute;
 
-            console.debug("Register routes >>>", routeObj,
-                          matchedRoute, this._targets, callbackQueue);
-
 
             routeObj.parameterNames = this._getParameterNames(matchedRoute);
             routeObj.route = this._convertRouteToRegExp(matchedRoute);
@@ -262,6 +292,38 @@ define([
                     //      with given route concatenated
                     //      at the end.
                     return matchedRoute + (route || '');
+                },
+
+                assemble: function (params, /*String*/ route) {
+                    // summary:
+                    //      TODO: write a comment
+                    //  returns:
+                    //      string
+                    try {
+                        var path = matchedRoute, match;
+
+                        if (route) {
+                            path = matchedRoute+route;
+                        }
+
+                        var newPath = path;
+                        if (count(params) < 1) {
+                            return path;
+                        }
+
+                        while((match = RouterBase().idMatch.exec(path)) !== null){
+                            for (var param in params) {
+                                if (param == match[1]) {
+                                    newPath = newPath.replace(new RegExp(match[0], 'g'), params[param]);
+                                }
+                            }
+                        }
+
+                        return newPath;
+                    } catch (e) {
+                        console.error(this.declaredClass, arguments, e);
+                        throw e;
+                    }
                 },
 
                 register: function(/*String*/ route,/*Function*/ callback){
