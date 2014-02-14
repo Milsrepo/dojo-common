@@ -73,13 +73,22 @@ return function (anchor, duration, easing) {
             stopAnimation();
         };
 
+        var getDocHeight = function () {
+            var D = document;
+            return Math.max(
+                D.body.scrollHeight, D.documentElement.scrollHeight,
+                D.body.offsetHeight, D.documentElement.offsetHeight,
+                D.body.clientHeight, D.documentElement.clientHeight
+            );
+        };
+
         // Stop the animation
         if ( increments >= 0 ) { // If scrolling down
             // Stop animation when you reach the anchor OR the bottom of the page
             stopAnimation = function () {
                 var travelled = domGeom.docScroll().y;
                 if ( (travelled >= (endLocation(anchor) - increments)) ||
-                   ( (window.innerHeight + travelled) >= document.body.scrollHeight) ) {
+                   ( (window.innerHeight + travelled) >= getDocHeight()) ) {
                     clearInterval(runAnimation);
                     defer.resolve();
                 }
