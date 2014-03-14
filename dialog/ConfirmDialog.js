@@ -9,7 +9,8 @@ define([
     "dijit/_WidgetsInTemplateMixin",
     "./DestroyableDialog",
     "dojo/text!./templates/ConfirmDialog.html",
-    'dojo/i18n!./nls/Dialog'
+    'dojo/i18n!./nls/Dialog',
+    'dijit/form/Button'
 ], function(declare, lang, win, domStyle, on, _Widget, _TemplatedMixin,
             _WidgetsInTemplateMixin, DestroyableDialog, template, translations) {
 

@@ -9,15 +9,14 @@ define([
     "dojo/touch",
     "dojo/_base/window",
     "dojo/dom-geometry",
-    "dojo/_base/array",
-    "dojox/gesture/swipe"
+    "dojo/_base/array"
 ], function(declare, lang, on, Evented, Destroyable, dom,
-            has, touch, win, domGeom, array, swipe) {
-    return declare([ Evented, Destroyable ], {
+            has, touch, win, domGeom, array) {
+    return declare('dojo-common/ScrollSpy', [ Evented, Destroyable ], {
 
         nodes: [],
         _nodeArray: [],
-        _topNodeName: '',
+        _topNodeName: null,
         _minimumY: 0,
 
         constructor: function (nodes) {
@@ -40,7 +39,7 @@ define([
                     this._nodeArray.push({'pos': params,
                                           'name': node.toString()});
 
-                    if (this._minimumY == 0 || this._minimumY > params.t) {
+                    if ((this._minimumY == 0 || this._minimumY > params.t) && !this._topNodeName) {
                         this._minimumY = params.t;
                         this._topNodeName = node.toString();
                     }
@@ -48,14 +47,54 @@ define([
                 }, this);
 
                 if (has('ios') || has('android')) {
-                    this.own(on(win.body(), touch.move, lang.hitch(this, '_handler')));
-                    this.own(on(win.body(), touch.press, lang.hitch(this, '_handler')));
-                    this.own(on(win.body(), touch.cancel, lang.hitch(this, '_handler')));
-                    this.own(on(win.body(), touch.release, lang.hitch(this, '_handler')));
+                    this.__handlers = [];
+                    var toucher = ['move', 'press', 'cancel', 'release'];
+
+                    for (var i = 0; i < toucher.length; i++) {
+                        var handle = on.pausable(win.body(),
+                                                 touch[toucher[i]],
+                                                 lang.hitch(this, '_handler'));
+                        this.own(handle);
+                        this.__handlers.push(handle);
+                    }
+
+                    // Overcome IOS devices who disable all events while scrolling
+                    this._interval = setInterval(lang.hitch(this, '_handler'), 1000);
+
                 } else {
-                    this.own(on(win.body(), (!has("mozilla") ? "mousewheel" : "DOMMouseScroll"),
-                                lang.hitch(this, '_handler')));
+                    var handler = on.pausable(win.body(),
+                                              (!has("mozilla") ? "mousewheel" : "DOMMouseScroll"),
+                                              lang.hitch(this, '_handler'));
+                    this.own(handler);
+                    this.__handlers = [handler];
                 }
+
+            } catch (e) {
+                 console.error(this.declaredClass, arguments, e);
+                 throw e;
+            }
+        },
+
+        pause: function () {
+            try {
+                (has('ios') || has('android')) &&
+                    this._interval &&
+                        clearInterval(this._interval);
+                array.forEach(this.__handlers, function (handler){handler.pause();});
+            } catch (e) {
+                 console.error(this.declaredClass, arguments, e);
+                 throw e;
+            }
+        },
+
+        resume: function () {
+            try {
+                if (has('ios') || has('android')) {
+                    this._interval && clearInterval(this._interval);
+                    this._interval = setInterval(lang.hitch(this, '_handler'), 1000);
+                }
+
+                array.forEach(this.__handlers, function (handler){handler.resume();});
             } catch (e) {
                  console.error(this.declaredClass, arguments, e);
                  throw e;
