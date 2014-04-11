@@ -9,16 +9,20 @@ define(['dojo/_base/declare',
     function(declare, _Widget, lang, query, aspect, domConstruct) {
 
         return declare([ _Widget ], {
+            manualLoad: false,
+
             constructor: function () {
                 try {
                     aspect.after(this, 'buildRendering',
-                                  lang.hitch(this, '_buildRendering'));
+                        lang.hitch(this, '_buildRendering'));
 
-                    aspect.after(this, 'startup',
-                                  lang.hitch(this, '_startup'));
+                    if (!this.manualLoad) {
+                        aspect.after(this, 'startup',
+                            lang.hitch(this, '_startup'));
+                    }
                 } catch (e) {
-                     console.error(this.declaredClass, arguments, e);
-                     throw e;
+                    console.error(this.declaredClass, arguments, e);
+                    throw e;
                 }
             },
 
