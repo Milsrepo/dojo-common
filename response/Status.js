@@ -39,7 +39,7 @@ define([
 
         isSuccess: function () {
             try {
-                return this.status == 1;
+                return this.status === 1;
             } catch (e) {
                  console.error(this.declaredClass+" "+arguments.callee.nom, arguments, e);
                  throw e;
@@ -61,17 +61,17 @@ define([
             //      from data
             try {
                 data = this.jsonify(data || {});
-                if (data instanceof RequestError) {
-                    if (data.response && data.response[_responseKey] != 200) {
-                        return 0;
-                    } else {
+                if (data instanceof RequestError || data instanceof Error) {
+                    if (data.response && data.response[_responseKey] === 200) {
                         return 1;
+                    } else {
+                        return 0;
                     }
                 } else {
-                    return typeof(data[_responseKey]) == 'undefined' ? null : data[_responseKey];
+                    return typeof(data[_responseKey]) === 'undefined' ? null : data[_responseKey];
                 }
             } catch (e) {
-                 console.error(this.declaredClass+" "+arguments.callee.nom, arguments, e);
+                 console.error(this.declaredClass + " " + arguments.callee.nom, arguments, e);
                  throw e;
             }
         }
