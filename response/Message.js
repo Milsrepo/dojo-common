@@ -1,9 +1,10 @@
 define([
         "dojo/_base/declare",
+        "./processor/DataMessages",
         "./_OptionalMixin",
         "./_GetterMixin",
         "./_JsonifyMixin"
-        ], function(declare, _OptionalMixin, _GetterMixin, _JsonifyMixin) {
+        ], function(declare, ProcessorDataMessages, _OptionalMixin, _GetterMixin, _JsonifyMixin) {
 // module:
 //      dojo-common/component/response/Message
 
@@ -43,13 +44,14 @@ define([
             //      Method for extracting message string
             //      from data
             try {
+               var resp, result, idx, message = [];
                data = this.jsonify(data || {});
-               var resp = data[_responseKey] || null;
-
+               resp = data[_responseKey] || null;
                if (resp === null) {
                    resp = data[_aliasKey] || null;
                }
-               return resp;
+
+               return ProcessorDataMessages.process(resp).toString();
             } catch (e) {
                  console.error(this.declaredClass+" "+arguments.callee.nom, arguments, e);
                  throw e;
