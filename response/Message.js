@@ -8,6 +8,7 @@ define([
 //      dojo-common/component/response/Message
 
     var _responseKey = 'message';
+    var _aliasKey = 'messages';
 
     return declare([ _OptionalMixin, _GetterMixin, _JsonifyMixin ], {
         // summary:
@@ -20,7 +21,7 @@ define([
             try {
                 this.message = this.extractMessage(data || {});
             } catch (e) {
-                console.error(this.declaredClass+" "+arguments.callee.nom, arguments, e);
+                console.error(this.declaredClass + " " + arguments.callee.nom, arguments, e);
                 throw e;
             }
         },
@@ -43,7 +44,12 @@ define([
             //      from data
             try {
                data = this.jsonify(data || {});
-               return data[_responseKey] || null;
+               var resp = data[_responseKey] || null;
+
+               if (resp === null) {
+                   resp = data[_aliasKey] || null;
+               }
+               return resp;
             } catch (e) {
                  console.error(this.declaredClass+" "+arguments.callee.nom, arguments, e);
                  throw e;
