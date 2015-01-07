@@ -29,6 +29,7 @@ function(declare, lang, on, array, request, domClass, _Widget, _Container, _Temp
         service: '',
         store: null,
         uploadingUrl: null,
+        deleteUrl: null,
 
         multiple: true, // for Form
 
@@ -203,7 +204,8 @@ function(declare, lang, on, array, request, domClass, _Widget, _Container, _Temp
 
                 on(spanNode, 'click', lang.hitch(this, function (){
                     if (confirm(this.messages.removeConfirmation)) {
-                        request.del(this.service+'/'+obj.id).then(lang.hitch(this, function (){
+                        var url = this.deleteUrl && this.deleteUrl + '/'+obj.id || this.service + '/' + obj.id;
+                        request.del(url).then(lang.hitch(this, function (){
                             this.store.remove(obj.id);
                             for (var key in this.data) {
                                 if (this.data[key].id == obj.id) {
