@@ -30,6 +30,7 @@ function(declare, lang, on, array, request, domClass, _Widget, _Container, _Temp
         store: null,
         uploadingUrl: null,
         deleteUrl: null,
+        uploadInputName: 'image',
 
         multiple: true, // for Form
 
