@@ -64,7 +64,7 @@ function(declare, lang, array, on, domClass, _Widget, _Container, _TemplatedMixi
 
         _setValueAttr: function (value) {
             try {
-                var parts = value.split(':');
+                var parts = (value.toString && value.toString() || value).split(':');
                 array.forEach(this.getChildren(), function(child, k){
                     if (typeof parts[k] != 'undefined') {
                         child.attr('value', parts[k]);
