@@ -3,12 +3,18 @@ define([], function() {
         var messages = [],
             name = fieldName, errorKey;
 
-        for (errorKey in fieldMessages) {
-            if (fieldMessages.hasOwnProperty(errorKey)) {
-                messages.push({
-                    'key': errorKey,
-                    'text': fieldMessages[errorKey]
-                });
+        if (typeof fieldMessages === 'string') {
+            messages.push({
+                'text': fieldMessages
+            });
+        } else {
+            for (errorKey in fieldMessages) {
+                if (fieldMessages.hasOwnProperty(errorKey)) {
+                    messages.push({
+                        'key': errorKey,
+                        'text': fieldMessages[errorKey]
+                    });
+                }
             }
         }
 
@@ -41,16 +47,15 @@ define([], function() {
                 if (typeof messages === 'string') {
                     processedMessages = [message('unknown', [messages])];
                 } else {
-                    if (typeof messages === 'object') {
+                    if (messages instanceof Array) {
+                        for (fieldName = 0; fieldName < messages.length; fieldName++) {
+                            processedMessages.push(message(fieldName, messages[fieldName]));
+                        }
+                    } else if (typeof messages === 'object') {
                         for (fieldName in messages) {
                             if (messages.hasOwnProperty(fieldName)) {
                                 processedMessages.push(message(fieldName, messages[fieldName]));
                             }
-                        }
-                    }
-                    if (messages instanceof Array) {
-                        for (fieldName = 0; fieldName < messages.length; fieldName++) {
-                            processedMessages.push(message(fieldName, messages[fieldName]));
                         }
                     }
                 }

@@ -44,7 +44,7 @@ define([
             //      Method for extracting message string
             //      from data
             try {
-               var resp, result, idx, message = [];
+               var resp;
                data = this.jsonify(data || {});
                resp = data[_responseKey] || null;
                if (resp === null) {
