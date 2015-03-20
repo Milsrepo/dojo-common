@@ -66,8 +66,10 @@ function(declare, lang, on, array, request, domClass, _Widget, _Container, _Temp
                 request.get(this.service, {handleAs: 'json'}).then(
                     lang.hitch(this, function (response){
                         this.store.setData([]);
+                        this.data = [];
 
                         array.forEach(response, function (item){
+                            this.data.push(item);
                             this.store.add(item);
                         }, this);
                     }), function () {
